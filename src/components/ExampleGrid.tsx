@@ -1,13 +1,23 @@
-import { Grid, TableHeaderRow, VirtualTable } from '@devexpress/dx-react-grid-material-ui';
+import { IntegratedSorting, SortingState } from '@devexpress/dx-react-grid';
+import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
+import * as Sentry from '@sentry/react';
 import React from 'react';
 import { DataProps } from '../App';
 
 
 const RootComponent: React.FC<Grid.RootProps> = (props) => <Grid.Root {...props} data-tid="project-list-table-root"/>;
 
-export const ExampleGrid: React.FC<DataProps> = ({ columns, rows }) => {
+const MyTable = Sentry.withProfiler(Table, { name: 'Table', includeRender: true, includeUpdates: true });
+
+const ExampleGrid: React.FC<DataProps> = ({ columns, rows }) => {
   return <Grid rootComponent={RootComponent} columns={columns} rows={rows}>
-    <VirtualTable height="auto"/>
-    <TableHeaderRow/>
+    <SortingState/>
+    <IntegratedSorting/>
+
+    <MyTable/>
+
+    <TableHeaderRow showSortingControls={true}/>
   </Grid>;
 };
+
+export default Sentry.withProfiler(ExampleGrid, { includeRender: true, includeUpdates: true });
