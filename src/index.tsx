@@ -20,7 +20,7 @@ const generateRows = (columns: Column[], numRows: number): object[] => {
 }
 
 const columns = generateColumns(10);
-const rows = generateRows(columns, 1234);
+const rows = generateRows(columns, 100);
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
